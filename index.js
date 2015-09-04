@@ -6,13 +6,21 @@ var useRemote = false;
 var xml = "";
 var dest = "./json/styleguide-2015.min.json";
 
-if(process.argv[2] === "useRemote"){
-  useRemote = true;
-}
+process.argv.forEach(function(val, index) {
+  console.log('value:', val)
 
-if(process.argv[3] !== undefined){
-  dest = process.argv[3];
-}
+  if(val === "useRemote=true"){
+    useRemote = true;
+    return;
+  }
+
+  console.log(val.substr(0,5));
+
+  if(val.substr(0,5) === 'dest='){
+    dest = val.substr(5);
+    return;
+  }
+});
 
 if(useRemote){
   console.log('request XML remotely...');
@@ -33,10 +41,7 @@ if(useRemote){
 }
 
 function parseXML(xml){
-  xml = xml.replace(/\s{2,}/g, "");
-  xml = xml.replace(/(<em>)|(<\/em>)/g, "");
-
-  var json = parser.toJson(xml);
+  var json = parser.toJson(xml.replace(/(<em>)|(<\/em>)|(\s{2,})/g, ""));
 
   fs.writeFile(dest, json, function(error) {
      if (error) {
