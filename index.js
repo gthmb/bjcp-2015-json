@@ -1,8 +1,13 @@
 var parser = require('xml2json');
 var request = require('request');
+
 var fs = require('fs');
-var useRemote = true;
+var useRemote = false;
 var xml = "";
+
+if(process.argv[2] === "useRemote"){
+  useRemote = true;
+}
 
 if(useRemote){
   console.log('request XML remotely...');
