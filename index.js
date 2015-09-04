@@ -4,7 +4,7 @@ var request = require('request');
 var fs = require('fs');
 var useRemote = false;
 var xml = "";
-var dest = './xml/styleguide-2015.xml';
+var dest = "./json/styleguide-2015.min.json";
 
 if(process.argv[2] === "useRemote"){
   useRemote = true;
@@ -24,7 +24,7 @@ if(useRemote){
   })
 } else {
   console.log('using local XML');
-  fs.readFile(dest, 'utf8', function (err,data) {
+  fs.readFile('./xml/styleguide-2015.xml', 'utf8', function (err,data) {
     if (err) {
       return console.log(err);
     }
@@ -33,6 +33,9 @@ if(useRemote){
 }
 
 function parseXML(xml){
+  xml = xml.replace(/\s{2,}/g, "");
+  xml = xml.replace(/(<em>)|(<\/em>)/g, "");
+
   var json = parser.toJson(xml);
 
   fs.writeFile(dest, json, function(error) {
