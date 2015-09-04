@@ -1,0 +1,29 @@
+{
+  "name": "bjcp-2015-json",
+  "version": "1.0.0",
+  "description": "Converts BJCP 2015 XML to various JSON files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gthmb/bjcp-2015-json.git"
+  },
+  "keywords": [
+    "bjcp",
+    "json",
+    "beer",
+    "styles"
+  ],
+  "author": "Jonathan Greene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gthmb/bjcp-2015-json/issues"
+  },
+  "homepage": "https://github.com/gthmb/bjcp-2015-json#readme",
+  "dependencies": {
+    "request": "^2.61.0",
+    "xml2json": "^0.9.0"
+  }
+}
