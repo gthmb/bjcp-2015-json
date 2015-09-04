@@ -4,9 +4,14 @@ var request = require('request');
 var fs = require('fs');
 var useRemote = false;
 var xml = "";
+var dest = './xml/styleguide-2015.xml';
 
 if(process.argv[2] === "useRemote"){
   useRemote = true;
+}
+
+if(process.argv[3] !== undefined){
+  dest = process.argv[3];
 }
 
 if(useRemote){
@@ -19,7 +24,7 @@ if(useRemote){
   })
 } else {
   console.log('using local XML');
-  fs.readFile('./xml/styleguide-2015.xml', 'utf8', function (err,data) {
+  fs.readFile(dest, 'utf8', function (err,data) {
     if (err) {
       return console.log(err);
     }
@@ -29,13 +34,12 @@ if(useRemote){
 
 function parseXML(xml){
   var json = parser.toJson(xml);
-  var path = './json/styleguide-2015.min.json';
 
-  fs.writeFile(path, json, function(error) {
+  fs.writeFile(dest, json, function(error) {
      if (error) {
        console.error("write error:  " + error.message);
      } else {
-       console.log("Successful Write to " + path);
+       console.log("Successful Write to " + dest);
      }
   });
 }
